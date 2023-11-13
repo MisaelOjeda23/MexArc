@@ -27,9 +27,9 @@ export class MainComponent {
   }
 
   initMap() {
-    this.map = L.map('map').setView([20.65874, -88.53467], 8);
+    this.map = L.map('map');
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
+      maxZoom: 17,
       attribution: '© OpenStreetMap'
     }).addTo(this.map);
 
@@ -65,6 +65,10 @@ export class MainComponent {
           layer.remove();
         }
       });
+      if(this.selectedOptions.length > 0){
+          this.map.setView([data[0].gmaps_latitud, data[0].gmaps_longitud], 7)
+
+      }
       // Agregar nuevos marcadores al mapa
       data.forEach((e: any) => {
         const marker = L.marker([e.gmaps_latitud, e.gmaps_longitud]).bindPopup(
