@@ -67,7 +67,6 @@ export class MainComponent {
       });
       if(this.selectedOptions.length > 0){
           this.map.setView([data[0].gmaps_latitud, data[0].gmaps_longitud], 7)
-
       }
       // Agregar nuevos marcadores al mapa
       data.forEach((e: any) => {

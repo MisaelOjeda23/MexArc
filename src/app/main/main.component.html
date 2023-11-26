@@ -1,0 +1,277 @@
+<div class="header d-flex mt-3 mx-3">
+    <aside class="">
+        <a class="text-decoration-none" href=""><i class="bi bi-list d-flex text-white fs-2"></i></a>
+    </aside> 
+    <div class="justify-content-center input-group">
+        <span class="input-group-text" id="basic-addon1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+    </svg>
+        </span>
+        <div class="buscador-map">
+            <select placeholder="Buscar Zona" class="tom-select"></select>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">    
+    <article class="row mb-5">
+        <section class="col-sm-6 mb-3 d-flex text-white justify-content-center align-items-center">
+            <div>
+                <h1 class="title">Bienvenido a MexArc</h1>
+                <p class="my-3 fs-5">Explora las bastas zonas arqueologicas con las que México cuenta
+                    siendo uno de los Países mas bastos en Cultura e Historia, conoce más de cada zona y
+                    disfruta de la experiencia de conocer sobre la historia de este gran País, ¿Listo?...
+                </p>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary rounded-pill">Conocer más...</button>
+            </div>
+        </section>
+        <section class="col-sm-6">
+            <div class="map" id="map"></div>
+        </section>
+    </article>
+    <div class="container text-center">
+        <div class="divisor">
+            <button class="btn btn-sm btn-purple rounded-pill">Top 5 zonas mas visitadas</button>
+        </div>
+    </div>
+    
+    <article class="row my-5" style="height: 170px;">
+        <div class="col pb-5">
+            <div class="card h-100">
+                <h4 class="text-center bg-top rounded-pill mb-3">#1</h4>
+                <a class="an-img" href="">
+                    <div class="list-img" style="background-image: url('../../assets/img/teotihuacan.jpg');"></div>
+                </a>
+                <p class="fs-4 fw-bold mt-3 text-center">Teotihuacan</p>
+            </div>
+        </div>
+        <div class="col pb-5">
+            <div class="card h-100">
+                <h4 class="text-center bg-top rounded-pill mb-3">#2</h4>
+                <a class="an-img" href="">
+                    <div class="list-img" style="background-image: url('../../assets/img/chichen-itza-ruins.jpg');"></div>
+                </a>
+                <p class="fs-4 fw-bold mt-3 text-center">Chichen Itza</p>
+            </div>
+        </div>
+        <div class="col-sm pb-5">
+            <div class="card h-100">
+                <h4 class="text-center bg-top rounded-pill mb-3">#3</h4>
+                <a class="an-img" href="">
+                    <div class="list-img" style="background-image: url('../../assets/img/palenque.jpg');"></div>
+                </a>
+                <p class="fs-4 fw-bold mt-3 text-center">Palenque</p>
+            </div>
+        </div>
+        <div class="col pb-5">
+            <div class="card h-100">
+                <h4 class="text-center bg-top rounded-pill mb-3">#4</h4>
+                <a class="an-img" href="">
+                    <div class="list-img" style="background-image: url('../../assets/img/tula.jpg');"></div>
+                </a>
+                <p class="fs-4 fw-bold mt-3 text-center">Tula</p>
+            </div>
+        </div>
+        <div class="col pb-5">
+            <div class="card h-100">
+                <h4 class="text-center bg-top rounded-pill mb-3">#5</h4>
+                <a class="an-img" href="">
+                    <div class="list-img" style="background-image: url('../../assets/img/tajin.jpg');"></div>
+                </a>
+                <p class="fs-4 fw-bold mt-3 text-center">Tajín</p>
+            </div>
+        </div>
+        <div class="container mb-5 text-center">
+            <div class="divisor">
+                <button class="btn btn-sm btn-purple rounded-pill">Zonas por Estados de México</button>
+            </div>
+        </div>
+        
+        <section class="row d-flex justify-content-center">
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Quintana Roo</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Yucatán</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Sonora</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Estado de México</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Campeche</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Veracruz</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Baja California</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Michoacan</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Jalisco</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Puebla</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Sinaloa</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Nuevo León</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">San Luis Potosi</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Chiapas</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Chihuahua</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Durango</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Guerrero</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Oaxaca</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Tamaulipas</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Tabasco</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Hidalgo</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">CDMX</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Campeche</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Veracruz</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Colima</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Nayarit</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Baja California Sur</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Guanajuato</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Tlaxcala</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Morelos</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Zacatecas</p></button>
+                </div>
+            </div>
+            <div class="col pb-5">
+                <div class="card h-100">
+                    <button class="list-img-state border-0"><p class="fs-4 fw-bold mt-3">Aguascalientes</p></button>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    
+</div>
+
+
+<!--Modals-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
