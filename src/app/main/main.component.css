@@ -154,6 +154,18 @@
 
 }
 
+@media (width < 1150px) {
+    .preview{
+        width: 50%;
+    }
+}
+
+@media (width > 1150px) {
+    .preview{
+        width: 100%;
+    }
+}
+
 
 
 

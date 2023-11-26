@@ -14,18 +14,19 @@
     </div>
 </div>
 
-<div class="container mt-5">    
+<div class="container mt-5">
     <article class="row mb-5">
-        <section class="col-sm-6 mb-3 d-flex text-white justify-content-center align-items-center">
+        <section id="bienvenida" class="col-sm-6 mb-3 d-flex text-white justify-content-center align-items-center">
             <div>
                 <h1 class="title">Bienvenido a MexArc</h1>
                 <p class="my-3 fs-5">Explora las bastas zonas arqueologicas con las que México cuenta
                     siendo uno de los Países mas bastos en Cultura e Historia, conoce más de cada zona y
                     disfruta de la experiencia de conocer sobre la historia de este gran País, ¿Listo?...
                 </p>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary rounded-pill">Conocer más...</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn  d-none btn-primary rounded-pill">Conocer más...</button>
             </div>
         </section>
+        <section id="zonaPreview" class="col-sm-6 d-none mb-3 d-flex text-white justify-content-center align-items-center"></section>
         <section class="col-sm-6">
             <div class="map" id="map"></div>
         </section>
@@ -35,7 +36,6 @@
             <button class="btn btn-sm btn-purple rounded-pill">Top 5 zonas mas visitadas</button>
         </div>
     </div>
-    
     <article class="row my-5" style="height: 170px;">
         <div class="col pb-5">
             <div class="card h-100">
