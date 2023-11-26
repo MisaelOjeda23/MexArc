@@ -45,8 +45,7 @@ export class MainComponent {
   }
 
   onLocationFound(e: any) {
-    var radius = e.accuracy;
-    console.log(e);
+    let radius = e.accuracy;
     L.marker(e.latlng).addTo(this.map)
       .bindPopup("Tu ubicación alrededor de " + radius + " metros").openPopup();
     L.circle(e.latlng, radius).addTo(this.map);
@@ -58,8 +57,6 @@ export class MainComponent {
 
   loadMarkers() {
     this.apiService.getZonasArqueologicas({ "search": this.selectedOptions }).subscribe(data => {
-      // Limpiar los marcadores existentes
-    
       this.map.eachLayer((layer: any) => {
         if (layer instanceof L.Marker) {
           layer.remove();
@@ -68,14 +65,98 @@ export class MainComponent {
       if(this.selectedOptions.length > 0){
           this.map.setView([data[0].gmaps_latitud, data[0].gmaps_longitud], 7)
       }
-      // Agregar nuevos marcadores al mapa
       data.forEach((e: any) => {
         const marker = L.marker([e.gmaps_latitud, e.gmaps_longitud]).bindPopup(
-          `<a href="/zona-arqueologica/${e.id}">${e.zona_arqueologica_nombre}</a><br>${e.zona_arqueologica_calle_numero}`
-        );
+          `<span>
+          ${e.zona_arqueologica_nombre}
+          <br>
+          <small>
+            <i class="bi bi-geo-alt-fill"></i>
+            <span class="mt-3">${e.nom_mun}</span>
+            <br>
+          </span>`
+        ).on('click', () => {
+          this.RenderPreview(e);
+        });
         marker.addTo(this.map);
       });
     });
+  }
+
+  RenderPreview(data: any) {
+    this.validateContent();
+
+    const $zonaPreview = document.getElementById('zonaPreview');
+    if (!$zonaPreview) return;
+
+    if(!data) return;
+
+    const { zona_arqueologica_nombre: nombre, nom_ent: estado, nom_mun: municipio, zones_description = {} } = data;
+    const { horario = '', img = '', relevancia_cultural: descripcion = ''} = zones_description;
+    const html = `
+    <div>
+      <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <img class="img-fluid" src="${img}" alt="">
+          </div>
+          <div class="row col-sm-12 col-md-6">
+            <div>
+              <span class="fs-1 fw-bold">${nombre}</span>
+            </div>
+              <span class="fs-5">${estado}</span>
+            <div>
+            </div>
+            <div>
+              <small>
+                <i class="bi bi-geo-alt-fill"></i>
+                <span class="mt-3">${municipio}</span>
+              </small>
+            </div>
+            <div>
+              ${horario}
+            </div>
+          </div>
+      </div>
+      <div style="text-align:justify; max-height: 15rem; overflow: hidden;">
+          <span class="d-none d-md-inline">
+            ${descripcion}
+          </span>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button id="createModal" class="btn btn-sm btn-primary mt-3 rounded-pill">Ver más detalles...</button>
+      </div>
+    </div>`;
+    $zonaPreview.innerHTML = html;
+
+    const $createModal = document.getElementById('createModal');
+
+    if(!$createModal) return;
+
+    this.validateContent();
+
+    $createModal.onclick = () => {
+      this.$createModal(data);
+    }
+  }
+
+  $createModal(data: any) {
+    console.log(data);
+  }
+
+  validateContent() {
+    const $bienvenida = document.getElementById('bienvenida');
+    const $zonaPreview = document.getElementById('zonaPreview');
+
+    if(!$bienvenida) return;
+    if(!$zonaPreview) return;
+
+    if ($zonaPreview.innerHTML === '') {
+      $bienvenida.classList.remove('d-none');
+      $zonaPreview.classList.add('d-none');
+    } else {
+      $bienvenida.classList.add('d-none');
+      $zonaPreview.classList.remove('d-none');
+    }
   }
 
   ChangeInput(value: any) {
