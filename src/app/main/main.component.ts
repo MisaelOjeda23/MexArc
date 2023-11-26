@@ -1,5 +1,5 @@
 // main.component.ts
-import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { ApiService } from '../api.service';
 import TomSelect from 'tom-select';
 
@@ -55,7 +55,7 @@ export class MainComponent {
     this.map.setView([20.65874, -88.53467], 8);
   }
 
-  loadMarkers() {
+  loadMarkers(reload: boolean = false) {
     this.apiService.getZonasArqueologicas({ "search": this.selectedOptions }).subscribe(data => {
       this.map.eachLayer((layer: any) => {
         if (layer instanceof L.Marker) {
@@ -80,6 +80,10 @@ export class MainComponent {
         });
         marker.addTo(this.map);
       });
+
+      if(reload && data.length == 1){
+        this.RenderPreview(data[0]);
+      }
     });
   }
 
@@ -97,7 +101,7 @@ export class MainComponent {
     <div>
       <div class="row">
           <div class="col-sm-12 col-md-6">
-            <img class="img-fluid" src="${img}" alt="">
+            <img class="img-fluid" src="${img}" alt="img-${nombre}">
           </div>
           <div class="row col-sm-12 col-md-6">
             <div>
@@ -164,7 +168,7 @@ export class MainComponent {
     this.selectedOptions = [value];
 
     // Volver a cargar los marcadores
-    this.loadMarkers();
+    this.loadMarkers(true);
   }
 
   ngAfterViewInit() {
@@ -182,8 +186,10 @@ export class MainComponent {
       };
 
       // Inicializar TomSelect con las opciones
-      const selectElement = this.el.nativeElement.querySelector('.tom-select');
-      const tomSelect = new TomSelect(selectElement, tomSelectConfig);
+      const selectElement = [...this.el.nativeElement.querySelectorAll('.tom-select')];
+      selectElement.forEach((e: any) => {
+        new TomSelect(e, tomSelectConfig);
+      });
     });
   }
 }
