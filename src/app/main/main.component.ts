@@ -79,11 +79,14 @@ export class MainComponent {
         ).on('click', () => {
           this.renderPreview(e);
           this.initStreetView(e);
-          this.insertModal(e);
+          this.insertModal(e, {}, true);
         });
         marker.addTo(this.map);
       });
 
+      if(data.length > 5){
+        this.createRecomendations(data);
+      }
       if(reload && data.length == 1){
         this.renderPreview(data[0]);
         this.initStreetView(data[0]);
@@ -91,13 +94,17 @@ export class MainComponent {
     });
   }
 
-  insertModal(data: any) {
+  insertModal(data: any, config: any, remove: boolean = false) {
     if (!data) return;
 
-    const $modals = Array.from(document.querySelectorAll('.modal-detail'));
-    if ($modals.length > 0) {
-      $modals.forEach((e: any) => e.remove());
+    if(remove){
+      const $modals = Array.from(document.querySelectorAll('.modal-detail'));
+      if ($modals.length > 0) {
+        $modals.forEach((e: any) => e.remove());
+      }
     }
+    console.log(data);
+    const { modalID = '' } = config;
 
     const {
       zona_arqueologica_id: id,
@@ -108,34 +115,33 @@ export class MainComponent {
       email,
       pagina_web,
       zona_arqueologica_telefono1: telefono,
+      nom_mun: municipio,
+      nom_ent: estado,
+      nom_loc: localidad
     } = data;
 
-    const { acceso = '', significado = '',  relevancia_cultural = '', img = ''} = descripcion;
+    const { acceso, significado,  relevancia_cultural, img = '', horario } = descripcion;
 
     const html = `
-        <div class="modal fade" id="zona-modal-${id}" tabindex="-1" aria-labelledby="zona-modal-${id}Label" aria-hidden="true">
+        <div class="modal fade" id="${modalID ? `${modalID}` : `zona-modal-${id}`}" tabindex="-1" aria-labelledby="${modalID ? `` : `zona-modal-${id}`}Label" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content" style="background-color: #00001e;">
               <div class="modal-header">
-                <h1 class="modal-title fs-3 fw-bold" id="zona-modal-${id}Label">${nombre}</h1>
+                <h1 class="modal-title fs-3 fw-bold" id="${modalID ? `` : `zona-modal-${id}`}Label">${nombre}</h1>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <div class="mb-3" style="display: flex; align-items: center; flex-direction: column;">
                   <img class="img-fluid" style=" border-radius:5px; min-width: 406px; min-height: 300px;" src="${img}" alt="img-${nombre}">
                 </div>
+                ${significado ? `<section class="row"><span class="fs-3 fw-bold">Significado</span><p>${significado}</p></section>` : ''}
+                ${relevancia_cultural ? `<section class="row"><span class="fs-3 fw-bold">Relevancia Cultural</span><p>${relevancia_cultural}</p></section>` : ''}
                 <section class="row">
-                  <span class="fs-3 mb-3 fw-bold">Significado</span>
-                  <p class="">${significado}</p>
+                <span class="fs-3 fw-bold">Locación</span>
+                  <p class="fw-bold"><p>${localidad}, ${municipio}, ${estado}</p></p>
                 </section>
-                <section class="row">
-                  <span class="fs-3 fw-bold">Relevancia Cultural</span>
-                  <p class="">${relevancia_cultural}</p>
-                </section>
-                <section class="row">
-                  <span class="fs-3 mb-3 fw-bold">Acceso</span>
-                  <p class="">${acceso}</p>
-                </section>
+                ${horario ? `<section class="row"><span class="fs-3 fw-bold">Horario</span>${horario}</section>` : ''}
+                ${acceso ? `<section class="row"><span class="fs-3 fw-bold">Acceso</span><p>${acceso}</p></section>` : ''}
                 <section class="row">
                   <span class="fs-3 fw-bold">Contacto</span>
                   ${pagina_web ? `<p class="fw-bold mt-3"><svg class="me-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M256 464c7.4 0 27-7.2 47.6-48.4c8.8-17.7 16.4-39.2 22-63.6H186.4c5.6 24.4 13.2 45.9 22 63.6C229 456.8 248.6 464 256 464zM178.5 304h155c1.6-15.3 2.5-31.4 2.5-48s-.9-32.7-2.5-48h-155c-1.6 15.3-2.5 31.4-2.5 48s.9 32.7 2.5 48zm7.9-144H325.6c-5.6-24.4-13.2-45.9-22-63.6C283 55.2 263.4 48 256 48s-27 7.2-47.6 48.4c-8.8 17.7-16.4 39.2-22 63.6zm195.3 48c1.5 15.5 2.2 31.6 2.2 48s-.8 32.5-2.2 48h76.7c3.6-15.4 5.6-31.5 5.6-48s-1.9-32.6-5.6-48H381.8zm58.8-48c-21.4-41.1-56.1-74.1-98.4-93.4c14.1 25.6 25.3 57.5 32.6 93.4h65.9zm-303.3 0c7.3-35.9 18.5-67.7 32.6-93.4c-42.3 19.3-77 52.3-98.4 93.4h65.9zM53.6 208c-3.6 15.4-5.6 31.5-5.6 48s1.9 32.6 5.6 48h76.7c-1.5-15.5-2.2-31.6-2.2-48s.8-32.5 2.2-48H53.6zM342.1 445.4c42.3-19.3 77-52.3 98.4-93.4H374.7c-7.3 35.9-18.5 67.7-32.6 93.4zm-172.2 0c-14.1-25.6-25.3-57.5-32.6-93.4H71.4c21.4 41.1 56.1 74.1 98.4 93.4zM256 512A256 256 0 1 1 256 0a256 256 0 1 1 0 512z"/></svg><a target="_blank" href="${pagina_web}">${pagina_web}</a></p>` : ''}
@@ -202,6 +208,42 @@ export class MainComponent {
     $zonaPreview.innerHTML = html;
 
     this.validateContent();
+  }
+
+  createRecomendations(data: any) {
+    let newData = data.slice();
+    let randomData = [];
+
+    for(let i = 0; i < 5; i++){
+      let random = Math.floor(Math.random() * newData.length);
+      randomData.push(newData[random]);
+      newData.splice(random, 1);
+    }
+
+    let html = '';
+
+    randomData.forEach((e: any, idx) => {
+      const { zona_arqueologica_id: id, zona_arqueologica_nombre: nombre, zones_description = {} } = e;
+      const { img = '' } = zones_description;
+      html += `
+      <div class="col pb-5">
+        <div class="card h-100" style="background-color: #00001e;">
+            <h4 class="text-center bg-top rounded-pill mb-3" style="background-color: #ebcf1a">#${idx + 1}</h4>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-recomendation-${id}" class="btn" href="">
+              <img src="${img}" class="img-fluid" style="border-radius: 10px; min-height: 200px; max-height: 200px" alt="${nombre}">
+            </button>
+            <p class="fs-4 fw-bold mt-3 text-center">${nombre}</p>
+        </div>
+      </div>
+      `;
+      this.insertModal(e, { modalID: `modal-recomendation-${id}` });
+    });
+
+    const $recomendations = document.getElementById('zonas-recomendadas');
+
+    if(!$recomendations) return;
+
+    $recomendations.innerHTML = html;
   }
 
   initStreetView(data: any) {
