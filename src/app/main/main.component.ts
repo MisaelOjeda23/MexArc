@@ -77,21 +77,86 @@ export class MainComponent {
             <br>
           </span>`
         ).on('click', () => {
-          this.RenderPreview(e);
+          this.renderPreview(e);
           this.initStreetView(e);
+          this.insertModal(e);
         });
         marker.addTo(this.map);
       });
 
       if(reload && data.length == 1){
-        this.RenderPreview(data[0]);
+        this.renderPreview(data[0]);
         this.initStreetView(data[0]);
       }
     });
   }
 
+  insertModal(data: any) {
+    if (!data) return;
 
-  RenderPreview(data: any) {
+    const $modals = Array.from(document.querySelectorAll('.modal-detail'));
+    if ($modals.length > 0) {
+      $modals.forEach((e: any) => e.remove());
+    }
+
+    const {
+      zona_arqueologica_id: id,
+      zones_description: descripcion = {},
+      zona_arqueologica_nombre: nombre,
+      gmaps_latitud: latitud,
+      gmaps_longitud: longitud,
+      email,
+      pagina_web,
+      zona_arqueologica_telefono1: telefono,
+    } = data;
+
+    const { acceso = '', significado = '',  relevancia_cultural = '', img = ''} = descripcion;
+
+    const html = `
+        <div class="modal fade" id="zona-modal-${id}" tabindex="-1" aria-labelledby="zona-modal-${id}Label" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #00001e;">
+              <div class="modal-header">
+                <h1 class="modal-title fs-3 fw-bold" id="zona-modal-${id}Label">${nombre}</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3" style="display: flex; align-items: center; flex-direction: column;">
+                  <img class="img-fluid" style=" border-radius:5px; min-width: 406px; min-height: 300px;" src="${img}" alt="img-${nombre}">
+                </div>
+                <section class="row">
+                  <span class="fs-3 mb-3 fw-bold">Significado</span>
+                  <p class="">${significado}</p>
+                </section>
+                <section class="row">
+                  <span class="fs-3 fw-bold">Relevancia Cultural</span>
+                  <p class="">${relevancia_cultural}</p>
+                </section>
+                <section class="row">
+                  <span class="fs-3 mb-3 fw-bold">Acceso</span>
+                  <p class="">${acceso}</p>
+                </section>
+                <section class="row">
+                  <span class="fs-3 fw-bold">Contacto</span>
+                  ${pagina_web ? `<p class="fw-bold mt-3"><svg class="me-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M256 464c7.4 0 27-7.2 47.6-48.4c8.8-17.7 16.4-39.2 22-63.6H186.4c5.6 24.4 13.2 45.9 22 63.6C229 456.8 248.6 464 256 464zM178.5 304h155c1.6-15.3 2.5-31.4 2.5-48s-.9-32.7-2.5-48h-155c-1.6 15.3-2.5 31.4-2.5 48s.9 32.7 2.5 48zm7.9-144H325.6c-5.6-24.4-13.2-45.9-22-63.6C283 55.2 263.4 48 256 48s-27 7.2-47.6 48.4c-8.8 17.7-16.4 39.2-22 63.6zm195.3 48c1.5 15.5 2.2 31.6 2.2 48s-.8 32.5-2.2 48h76.7c3.6-15.4 5.6-31.5 5.6-48s-1.9-32.6-5.6-48H381.8zm58.8-48c-21.4-41.1-56.1-74.1-98.4-93.4c14.1 25.6 25.3 57.5 32.6 93.4h65.9zm-303.3 0c7.3-35.9 18.5-67.7 32.6-93.4c-42.3 19.3-77 52.3-98.4 93.4h65.9zM53.6 208c-3.6 15.4-5.6 31.5-5.6 48s1.9 32.6 5.6 48h76.7c-1.5-15.5-2.2-31.6-2.2-48s.8-32.5 2.2-48H53.6zM342.1 445.4c42.3-19.3 77-52.3 98.4-93.4H374.7c-7.3 35.9-18.5 67.7-32.6 93.4zm-172.2 0c-14.1-25.6-25.3-57.5-32.6-93.4H71.4c21.4 41.1 56.1 74.1 98.4 93.4zM256 512A256 256 0 1 1 256 0a256 256 0 1 1 0 512z"/></svg><a target="_blank" href="${pagina_web}">${pagina_web}</a></p>` : ''}
+                  ${email ? `<p class="fw-bold mt-3"><svg class="me-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/></svg><a href="mailto:${email}">${email}</a></p>` : ''}
+                  ${telefono ? `<p class="fw-bold mt-3"><svg class="me-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M375.8 275.2c-16.4-7-35.4-2.4-46.7 11.4l-33.2 40.6c-46-26.7-84.4-65.1-111.1-111.1L225.3 183c13.8-11.3 18.5-30.3 11.4-46.7l-48-112C181.2 6.7 162.3-3.1 143.6 .9l-112 24C13.2 28.8 0 45.1 0 64v0C0 295.2 175.2 485.6 400.1 509.5c9.8 1 19.6 1.8 29.6 2.2c0 0 0 0 0 0c0 0 .1 0 .1 0c6.1 .2 12.1 .4 18.2 .4l0 0c18.9 0 35.2-13.2 39.1-31.6l24-112c4-18.7-5.8-37.6-23.4-45.1l-112-48zM441.5 464C225.8 460.5 51.5 286.2 48.1 70.5l99.2-21.3 43 100.4L154.4 179c-18.2 14.9-22.9 40.8-11.1 61.2c30.9 53.3 75.3 97.7 128.6 128.6c20.4 11.8 46.3 7.1 61.2-11.1l29.4-35.9 100.4 43L441.5 464zM48 64v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0s0 0 0 0"/></svg><a href="tel:${telefono}">${telefono}</a></p>` : ''}
+                </section>
+                <section class="row">
+                  <p class="fw-bold mt-3">Coordernadas del lugar: ${latitud}, ${longitud}</p>
+                </section>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+    document.body.insertAdjacentHTML('beforeend', html);
+  }
+
+  renderPreview(data: any) {
     this.validateContent();
 
     const $zonaPreview = document.getElementById('zonaPreview');
@@ -99,7 +164,7 @@ export class MainComponent {
 
     if(!data) return;
 
-    const { zona_arqueologica_nombre: nombre, nom_ent: estado, nom_mun: municipio, zones_description = {} } = data;
+    const { zona_arqueologica_id: id, zona_arqueologica_nombre: nombre, nom_ent: estado, nom_mun: municipio, zones_description = {} } = data;
     const { horario = '', img = '', relevancia_cultural: descripcion = ''} = zones_description;
     const html = `
     <div>
@@ -131,20 +196,12 @@ export class MainComponent {
           </span>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button id="createModal" class="btn btn-sm btn-primary mt-3 rounded-pill">Ver más detalles...</button>
+        <button id="openModal" data-bs-toggle="modal" data-bs-target="#zona-modal-${id}" class="btn btn-sm btn-primary mt-3 rounded-pill">Ver más detalles...</button>
       </div>
     </div>`;
     $zonaPreview.innerHTML = html;
 
-    const $createModal = document.getElementById('createModal');
-
-    if(!$createModal) return;
-
     this.validateContent();
-
-    $createModal.onclick = () => {
-      this.$createModal(data);
-    }
   }
 
   initStreetView(data: any) {
@@ -186,10 +243,6 @@ export class MainComponent {
         $btnStreet.classList.remove('d-none');
       }
     });
-  }
-
-  $createModal(data: any) {
-    console.log(data);
   }
 
   validateContent() {
