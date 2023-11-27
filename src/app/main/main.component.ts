@@ -4,6 +4,7 @@ import { ApiService } from '../api.service';
 import TomSelect from 'tom-select';
 
 declare let L: any;
+declare let google: any;
 
 type TomSelectConfig = {
   options: any[];
@@ -78,15 +79,18 @@ export class MainComponent {
           </span>`
         ).on('click', () => {
           this.RenderPreview(e);
+          this.initStreetView(e);
         });
         marker.addTo(this.map);
       });
 
       if(reload && data.length == 1){
         this.RenderPreview(data[0]);
+        this.initStreetView(data[0]);
       }
     });
   }
+
 
   RenderPreview(data: any) {
     this.validateContent();
@@ -218,6 +222,37 @@ export class MainComponent {
     }
   }
 
+  initStreetView(data: any) {
+    if(!data) {
+      console.error('No se ha recibido información para cargar el street view');
+      return;
+    }
+    const $streetView = document.getElementById('street-view');
+    const $btnStreet = document.getElementById('btn-street-view');
+
+    if (!$streetView) return;
+    if (!$btnStreet) return;
+    let { gmaps_latitud: latitud = 21.1463757, gmaps_longitud: longitud = -86.8248354 } = data;
+    latitud = parseFloat(latitud);
+    longitud = parseFloat(longitud);
+
+    if (isNaN(latitud) || isNaN(longitud)) {
+      console.error('No se ha recibido información para cargar el street view');
+      return;
+    }
+
+    const _panorama = new google.maps.StreetViewPanorama(
+      $streetView,
+      {
+        position: { lat: latitud, lng: longitud },
+        pov: { heading: 165, pitch: 0 },
+        zoom: 1
+      }
+    );
+
+    $btnStreet.classList.remove('d-none');
+  }
+
   $createModal(data: any) {
     console.log(data);
   }
@@ -246,6 +281,29 @@ export class MainComponent {
     this.loadMarkers(true);
   }
 
+  changeViewBehaviour(){
+    const $btnMap = document.getElementById('btn-map-view');
+    const $btnStreet = document.getElementById('btn-street-view');
+
+    const $streetView = document.getElementById('street-view');
+    const $map = document.getElementById('map');
+
+    if(!$btnMap) return;
+    if(!$btnStreet) return;
+    if(!$streetView) return;
+    if(!$map) return;
+
+    $btnMap.onclick = () => {
+      $streetView.classList.add('d-none');
+      $map.classList.remove('d-none');
+    }
+
+    $btnStreet.onclick = () => {
+      $streetView.classList.remove('d-none');
+      $map.classList.add('d-none');
+    }
+  }
+
   ngAfterViewInit() {
     this.apiService.getInfoFilters().subscribe(data => {
       const options = data.map((e: any) => ({
@@ -266,5 +324,7 @@ export class MainComponent {
         new TomSelect(e, tomSelectConfig);
       });
     });
+
+    this.changeViewBehaviour();
   }
 }

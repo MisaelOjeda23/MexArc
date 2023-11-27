@@ -83,10 +83,6 @@
     border-top: 1px solid #1f1e42;
 }
 
-.bi-star-fill {
-    color: #ebcf1a;
-}
-
 @media (width > 1350px) {
     .divisor::after, .divisor::before {
         content: '';
@@ -95,7 +91,7 @@
         height: 1px;
         background-color: #6200ff;
         top: 0.8em;
-    } 
+    }
 
     .divisor::before {
         left: -620px;
