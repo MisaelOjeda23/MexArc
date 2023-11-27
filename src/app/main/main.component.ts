@@ -103,7 +103,6 @@ export class MainComponent {
         $modals.forEach((e: any) => e.remove());
       }
     }
-    console.log(data);
     const { modalID = '' } = config;
 
     const {
