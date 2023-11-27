@@ -82,6 +82,19 @@
     border-top: 1px solid #1f1e42;
 }
 
+.list-group{
+    flex-direction: row;
+}
+
+.list-group-item {
+    background-color: #00001e;
+}
+
+.list-group-item.active {
+    background-color: #121266;
+    border: none;
+}
+
 .street-view {
     height: 400px;
     border-radius: 10px;

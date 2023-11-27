@@ -148,6 +148,7 @@ export class MainComponent {
   }
 
   initStreetView(data: any) {
+    const sv = new google.maps.StreetViewService();
     if(!data) {
       console.error('No se ha recibido información para cargar el street view');
       return;
@@ -157,6 +158,9 @@ export class MainComponent {
 
     if (!$streetView) return;
     if (!$btnStreet) return;
+
+    $streetView.innerHTML = '';
+
     let { gmaps_latitud: latitud = 21.1463757, gmaps_longitud: longitud = -86.8248354 } = data;
     latitud = parseFloat(latitud);
     longitud = parseFloat(longitud);
@@ -175,7 +179,13 @@ export class MainComponent {
       }
     );
 
-    $btnStreet.classList.remove('d-none');
+    sv.getPanorama({ location: { lat: latitud, lng: longitud }, radius: 50 }, (data: any, status: any) => {
+      if (data == null) {
+        $btnStreet.classList.add('d-none');
+      } else {
+        $btnStreet.classList.remove('d-none');
+      }
+    });
   }
 
   $createModal(data: any) {
@@ -220,11 +230,15 @@ export class MainComponent {
 
     $btnMap.onclick = () => {
       $streetView.classList.add('d-none');
+      $btnStreet.classList.remove('active');
+      $btnMap.classList.add('active');
       $map.classList.remove('d-none');
     }
 
     $btnStreet.onclick = () => {
+      $btnStreet.classList.add('active');
       $streetView.classList.remove('d-none');
+      $btnMap.classList.remove('active');
       $map.classList.add('d-none');
     }
   }
