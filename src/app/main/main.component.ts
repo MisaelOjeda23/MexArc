@@ -105,7 +105,7 @@ export class MainComponent {
     <div>
       <div class="row">
           <div class="col-sm-12 col-md-6">
-            <img class="img-fluid" src="${img}" alt="img-${nombre}">
+            <img class="img-fluid" style="border-radius: 10px; min-width: 300px; min-height: 200px;" src="${img}" alt="img-${nombre}">
           </div>
           <div class="row col-sm-12 col-md-6">
             <div>
@@ -125,7 +125,7 @@ export class MainComponent {
             </div>
           </div>
       </div>
-      <div style="text-align:justify; max-height: 15rem; overflow: hidden;">
+      <div class="mt-2" style="text-align:justify; max-height: 15rem; overflow: hidden;">
           <span class="d-none d-md-inline">
             ${descripcion}
           </span>
