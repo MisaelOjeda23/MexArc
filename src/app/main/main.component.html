@@ -80,57 +80,15 @@
         </div>
     </article>
 
-    <!-- <div class="container text-center">
+    <div class="container text-center mt-5">
         <div class="divisor">
-            <button class="btn btn-sm btn-purple rounded-pill">Top 5 zonas mas visitadas</button>
+            <button class="btn btn-md btn-purple rounded-pill">5 zonas recomendadas</button>
         </div>
     </div>
-    <article class="row my-5" style="height: 170px;">
-        <div class="col pb-5">
-            <div class="card h-100">
-                <h4 class="text-center bg-top rounded-pill mb-3">#1</h4>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="an-img" href="">
-                    <div class="list-img" style="background-image: url('../../assets/img/teotihuacan.jpg');"></div>
-                </button>
-                <p class="fs-4 fw-bold mt-3 text-center">Teotihuacan</p>
-            </div>
-        </div>
-        <div class="col pb-5">
-            <div class="card h-100">
-                <h4 class="text-center bg-top rounded-pill mb-3">#2</h4>
-                <a class="an-img" href="">
-                    <div class="list-img" style="background-image: url('../../assets/img/chichen-itza-ruins.jpg');"></div>
-                </a>
-                <p class="fs-4 fw-bold mt-3 text-center">Chichen Itza</p>
-            </div>
-        </div>
-        <div class="col-sm pb-5">
-            <div class="card h-100">
-                <h4 class="text-center bg-top rounded-pill mb-3">#3</h4>
-                <a class="an-img" href="">
-                    <div class="list-img" style="background-image: url('../../assets/img/palenque.jpg');"></div>
-                </a>
-                <p class="fs-4 fw-bold mt-3 text-center">Palenque</p>
-            </div>
-        </div>
-        <div class="col pb-5">
-            <div class="card h-100">
-                <h4 class="text-center bg-top rounded-pill mb-3">#4</h4>
-                <a class="an-img" href="">
-                    <div class="list-img" style="background-image: url('../../assets/img/tula.jpg');"></div>
-                </a>
-                <p class="fs-4 fw-bold mt-3 text-center">Tula</p>
-            </div>
-        </div>
-        <div class="col pb-5">
-            <div class="card h-100">
-                <h4 class="text-center bg-top rounded-pill mb-3">#5</h4>
-                <a class="an-img" href="">
-                    <div class="list-img" style="background-image: url('../../assets/img/tajin.jpg');"></div>
-                </a>
-                <p class="fs-4 fw-bold mt-3 text-center">Tajín</p>
-            </div>
-        </div>
+
+    <article id="zonas-recomendadas" class="row my-5" style="height: 170px;">
+    </article>
+        <!-- 
         <div class="container mb-5 text-center">
             <div class="divisor">
                 <button class="btn btn-sm btn-purple rounded-pill">Zonas por Estados de México</button>
@@ -303,100 +261,3 @@
 
     
 </div>
-
-
-<!--Modals-->
-
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-3 fw-bold" id="exampleModalLabel">México</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <img class="w-100" src="../../assets/img/licensed-image.jpeg" alt="México">
-            <p class="my-3">México es un país soberano ubicado en la parte meridional de América del Norte; su capital y ciudad más poblada es la Ciudad de México. 
-                Este hermoso País goza de una basta Cultura e Historia que se ha quedado marcada en las actuales Zonas Arqueológicas que existen por todo el territorio.
-            </p>
-            <section class="row">
-                <span class="fs-3 mb-3 fw-bold">Conoce las zonas arqueologicas</span>
-                <div class="col-6">
-                    <img class="w-100" src="../../assets/img/chichen-itza-ruins.jpg" alt="">
-                </div>
-                <div class="col-6">
-                    <img class="w-100" src="../../assets/img/tajin.jpg" alt="">
-                </div>
-                <p class="my-3">Te damos la bienvenida a MexArcApp, la aplicacion el la que podras explorar todo lo relacionado a estas zonas
-                    misteriosas que guardan la historia de los años en México, podrás explorar las zonas por nombre o por estado, conociendo cada una de las zonas
-                    si así lo deseas, adelante, ¡Busca una zona en el mapa!
-                </p>
-            </section>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary rounded-pill" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-3 fw-bold" id="exampleModalLabel">Teotihuacan</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="ContainerCenter">
-               
-                    <input type="radio" name="Carrusel" id="Slider1" checked>
-                    <input type="radio" name="Carrusel" id="Slider2">
-                    <input type="radio" name="Carrusel" id="Slider3">
-                    
-                    <div class="Carrusels">
-                  
-                      <div class="Carrusel" style="background-image: url('../../assets/img/teotihuacan.jpg');"></div> 
-                      <div class="Carrusel" style="background-image: url('../../assets/img/teotihuacan2.jpg');"></div>
-                      <div class="Carrusel" style="background-image: url('../../assets/img/teotihuacan3.jpg');"></div>
-                      
-              
-                      <label for="Slider3" class="ArrowLeft Arrow1">❮</label>
-                      <label for="Slider1" class="ArrowLeft Arrow2">❮</label>
-                      <label for="Slider2" class="ArrowLeft Arrow3">❮</label>
-                      
-                   
-                      <label for="Slider2" class="ArrowRight Arrow1">❯</label> 
-                      <label for="Slider3" class="ArrowRight Arrow2">❯</label>
-                      <label for="Slider1" class="ArrowRight Arrow3">❯</label>
-                    </div>
-                    
-                   
-                    <div class="Selectors">
-                      <label for="Slider1" class="Selector me-2"></label>
-                      <label for="Slider2" class="Selector me-2"></label>
-                      <label for="Slider3" class="Selector"></label>
-                    </div>
-                  </div>
-            <p class="my-3">Teotihuacán es un amplio complejo arqueológico mexicano al noreste de la Ciudad de México. Por el centro del lugar, que alguna vez fue una floreciente ciudad precolombina, pasa la Calzada de los Muertos. 
-                Esta une el Templo de Quetzalcóatl, la Pirámide de la Luna y la Pirámide del Sol.
-            </p>
-            <section class="row">
-                <span class="fs-3 mb-3 fw-bold">Historia</span>
-                <p class="">La Ciudad Prehispánica de Teotihuacan fue uno de los centros urbanos más grandes del mundo antiguo, que llegó a concentrar una población mayor a los 100,000 habitantes en su momento de máximo esplendor. 
-                    Situada en un valle rico en recursos naturales, Teotihuacan fue la sede del poder de una de las sociedades mesoamericanas más influyentes en los ámbitos político, económico, comercial, religioso y cultural, 
-                    cuyos rasgos marcaron permanentemente a los pueblos del altiplano mexicano, traspasando el tiempo y llegando hasta nosotros con la misma fuerza y grandeza con que sus constructores la planearon.
-                </p>
-            </section>
-            <section class="row">
-                <span class="fs-3 mb-3 fw-bold">Mapa</span>
-                <div class="map" id="map" style="background-color: rgb(135, 187, 233);"></div>
-                <p class="fw-bold mt-3">Coordernadas: -2132132412414214, 14212412421453</p>
-            </section>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary rounded-pill" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div> -->
