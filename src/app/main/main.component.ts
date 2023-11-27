@@ -67,13 +67,14 @@ export class MainComponent {
       }
       data.forEach((e: any) => {
         const marker = L.marker([e.gmaps_latitud, e.gmaps_longitud]).bindPopup(
-          `<span>
+          `<span class="text-primary">
           ${e.zona_arqueologica_nombre}
           <br>
           <small>
             <i class="bi bi-geo-alt-fill"></i>
             <span class="mt-3">${e.nom_mun}</span>
             <br>
+            <p>${e.gmaps_latitud}, ${e.gmaps_longitud}</p>
           </span>`
         ).on('click', () => {
           this.RenderPreview(e);
@@ -95,25 +96,23 @@ export class MainComponent {
 
     if(!data) return;
 
-    const { zona_arqueologica_nombre: nombre, nom_ent: estado, nom_mun: municipio, zones_description = {} } = data;
-    const { horario = '', img = '', relevancia_cultural: descripcion = ''} = zones_description;
+    const { gmaps_latitud: x, gmaps_longitud: y, email: email, pagina_web: pweb, zona_arqueologica_nombre: nombre, nom_ent: estado, nom_mun: municipio, zones_description = {} } = data;
+    const { contacto: contacto,acceso: acceso, significado: cultura, horario = '', img = '', relevancia_cultural: descripcion = ''} = zones_description;
     const html = `
+
     <div>
       <div class="row">
-          <div class="col-sm-12 col-md-6">
+          <div class="col-sm-12 col-md-6 mb-3">
             <img class="img-fluid" src="${img}" alt="img-${nombre}">
           </div>
           <div class="row col-sm-12 col-md-6">
             <div>
               <span class="fs-1 fw-bold">${nombre}</span>
             </div>
-              <span class="fs-5">${estado}</span>
-            <div>
-            </div>
             <div>
               <small>
                 <i class="bi bi-geo-alt-fill"></i>
-                <span class="mt-3">${municipio}</span>
+                <span class="mt-3">${municipio}, ${estado}</span>
               </small>
             </div>
             <div>
@@ -127,14 +126,90 @@ export class MainComponent {
           </span>
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button id="createModal" class="btn btn-sm btn-primary mt-3 rounded-pill">Ver más detalles...</button>
+        <button id="createModal" class="openModal btn btn-sm btn-primary mt-3 rounded-pill">Ver más detalles...</button>
       </div>
-    </div>`;
+
+      <div class="mod">
+        <div class="mod-content"> 
+          <h2 class="fw-bold mb-3">${nombre}</h2>
+          <div class="mod-img justify-content-center">
+            <img class="img-fluid w-100" src="${img}" alt="img-${nombre}">
+          </div>
+          <div class="mt-3 fw-bold">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span class="mt-3">${municipio}, ${estado}</span>
+          </div>
+          <div class="my-3 fw-bold">Coordernadas: ${x}, ${y}</div>
+          <p>${descripcion}</p>
+          <h3 class="my-3 fw-bold">Cultura</h3>
+          <p>${cultura}<p>
+          <h3 class="my-3 fw-bold">Acceso</h3>
+          <p>${acceso}<p>
+          <h3 class="my-3 fw-bold">Contacto</h3>
+          <div class="mb-3">
+            <p class="mt-0">Email: ${email}<p>
+            <p class="mt-0">Números: ${contacto}<p>
+            <p class="mt-0">Página oficial: <a href="${pweb}">${pweb}</a><p>
+          </div>
+          <div class="modal-footer d-flex mt-2">
+            <button class="close btn btn-sm btn-secondary rounded-pill">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+
+    .mod {
+      z-index: 1060;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #111111bd;
+      display: flex;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+      overflow: auto;
+    }
+
+    .mod-show {
+      opacity: 1;
+      pointer-events: unset;
+      transition: opacity .3s;
+    }
+
+    .mod-content {
+      background-color: #00001e;
+      margin: auto;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 10px;
+      padding: 3em 2.5em;
+    }
+
+    </style>
+    `;
     $zonaPreview.innerHTML = html;
 
     const $createModal = document.getElementById('createModal');
+    const $openModal = document.querySelector('.openModal');
+    const $modal = document.querySelector('.mod');
+    const $close = document.querySelector('.close');
 
-    if(!$createModal) return;
+    if (!$createModal) return; if (!$openModal) return; if (!$modal) return; if (!$close) return;
+
+    $openModal.addEventListener('click', (e) =>{
+      e.preventDefault();
+      $modal.classList.add('mod-show')
+    });
+
+    $close.addEventListener('click', (e) =>{
+      e.preventDefault();
+      $modal.classList.remove('mod-show')
+    });
 
     this.validateContent();
 

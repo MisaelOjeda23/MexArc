@@ -72,6 +72,7 @@
 
 .modal-content {
     background-color: #00001e;
+    padding: 1em;
 }
 
 .modal-header {
@@ -80,6 +81,10 @@
 
 .modal-footer {
     border-top: 1px solid #1f1e42;
+}
+
+.bi-star-fill {
+    color: #ebcf1a;
 }
 
 @media (width > 1350px) {
@@ -180,8 +185,6 @@ label{cursor: pointer;}
 }
 /* Input */
 input{display: none}
-
-
 
 /* Slider */
 .Carrusels{
